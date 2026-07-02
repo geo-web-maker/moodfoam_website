@@ -1,0 +1,122 @@
+.about-hero__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr;
+  gap: 48px;
+  align-items: start;
+}
+.about-hero__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.about-hero__stat {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+.about-hero__stat strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--coral-dark);
+}
+.about-hero__stat span {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.about-foundation {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.about-foundation__card {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+}
+.about-foundation__card p { color: var(--text); margin: 0; }
+.about-values {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.about-values li {
+  padding-left: 20px;
+  position: relative;
+  color: var(--text);
+  font-weight: 600;
+}
+.about-values li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--coral);
+}
+
+.about-goal h3 { margin-bottom: 8px; }
+.about-goal { padding: 26px; }
+.about-goal p { margin: 0; }
+
+.about-subheading {
+  margin-top: 48px;
+  margin-bottom: 20px;
+  color: var(--text-on-ink);
+}
+.about-institution-grid {
+  gap: 20px;
+}
+.about-institution-item {
+  border-left: 2px solid var(--gold);
+  padding-left: 18px;
+}
+.about-institution-item h4 {
+  color: var(--text-on-ink);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+.about-institution-item p {
+  color: var(--text-on-ink-muted);
+  margin: 0;
+  font-size: 0.9rem;
+}
+.about-branding-copy {
+  max-width: 680px;
+  color: var(--text-on-ink-muted);
+}
+
+.nav__brand {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+.nav__brand-logo {
+  height: 40px;      
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 480px) {
+  .nav__brand-logo {
+    height: 32px;    
+  }
+}
+
+.about-cta {
+  text-align: center;
+}
+.about-cta h2 { margin-bottom: 24px; }
+
+@media (max-width: 860px) {
+  .about-hero__grid, .about-foundation { grid-template-columns: 1fr; }
+}

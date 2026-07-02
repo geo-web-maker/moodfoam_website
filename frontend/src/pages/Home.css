@@ -1,0 +1,52 @@
+.hero {
+  background: var(--ink);
+  color: var(--text-on-ink);
+  padding: 64px 0 0;
+}
+
+.hero__lede {
+  color: var(--text-on-ink-muted);
+  font-size: 1.1rem;
+  max-width: 480px;
+  margin-bottom: 32px;
+}
+.hero__actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* Signature layered-foam illustration: stacked rounded bars evoking a
+   mattress cross-section, each layer a different accent tone. */
+.hero__layers {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+}
+
+.home__more {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.cta h2 { max-width: 520px; }
+.cta__actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 860px) {
+  .hero__grid { grid-template-columns: 1fr; }
+  .hero__layers { padding: 0; margin-top: 8px; }
+  .cta { flex-direction: column; align-items: flex-start; }
+}
