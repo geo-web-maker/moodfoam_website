@@ -24,7 +24,7 @@ class CategoryUpdate(BaseModel):
 
 class CategoryOut(CategoryBase):
     model_config = ConfigDict(from_attributes=True)
-    id: int
+    id: str
     product_count: int = 0
 
 
@@ -33,7 +33,7 @@ class CategoryOut(CategoryBase):
 class ProductBase(BaseModel):
     name: str
     slug: str
-    category_id: int
+    category_id: str
     short_description: str = ""
     description: str = ""
     sizes: list[str] = []
@@ -50,7 +50,7 @@ class ProductCreate(ProductBase):
 class ProductUpdate(BaseModel):
     name: str | None = None
     slug: str | None = None
-    category_id: int | None = None
+    category_id: str | None = None
     short_description: str | None = None
     description: str | None = None
     sizes: list[str] | None = None
@@ -62,7 +62,7 @@ class ProductUpdate(BaseModel):
 
 class ProductOut(ProductBase):
     model_config = ConfigDict(from_attributes=True)
-    id: int
+    id: str
     created_at: datetime
     updated_at: datetime
     category: CategoryOut | None = None
@@ -91,6 +91,6 @@ class ContactMessageCreate(BaseModel):
 
 class ContactMessageOut(ContactMessageCreate):
     model_config = ConfigDict(from_attributes=True)
-    id: int
+    id: str
     created_at: datetime
     is_read: bool
