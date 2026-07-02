@@ -4,10 +4,9 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-from sqlalchemy.orm import Session
+
 
 from .config import settings
-from .database import get_db
 from . import models
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -32,8 +31,8 @@ def create_access_token(subject: str) -> str:
     return jwt.encode(payload, settings.secret_key, algorithm=ALGORITHM)
 
 
-def get_current_admin(
-    token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)
+async def get_current_admin(
+    token: str = Depends(oauth2_scheme)
 ) -> models.AdminUser:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -48,9 +47,4 @@ def get_current_admin(
     except JWTError:
         raise credentials_exception
 
-    user = db.query(models.AdminUser).filter(
-        models.AdminUser.username == username
-    ).first()
-    if user is None:
-        raise credentials_exception
-    return user
+    user = await models.AdminUser.find_one(models.AdminUser.username == username)
