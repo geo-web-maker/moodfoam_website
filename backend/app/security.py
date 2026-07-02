@@ -48,3 +48,7 @@ async def get_current_admin(
         raise credentials_exception
 
     user = await models.AdminUser.find_one(models.AdminUser.username == username)
+
+    if user is None:
+        raise credentials_exception
+    return user
