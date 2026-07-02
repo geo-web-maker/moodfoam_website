@@ -1,19 +1,11 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from beanie import init_beanie
+from motor.motor_asyncio import AsyncIOMotorClient
+from .config import settings
+from . import models
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./moodfoam.db"
-
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-Base = declarative_base()
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+async def init_db():
+    client = AsyncIOMotorClient(settings.mongodb_uri)
+    await init_beanie(
+        database=client[settings.mongodb_db_name],
+        document_models=[models.Category, models.Product, models.AdminUser, models.ContactMessage],
+    )
