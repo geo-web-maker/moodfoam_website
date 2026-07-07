@@ -93,7 +93,7 @@ export default function Contact() {
           {status === 'error' && <p className="contact__status contact__status--error">Something went wrong. Please try WhatsApp or call us instead.</p>}
 
           <WhatsAppButton
-            className="btn btn--coral contact__whatsapp"
+            className="btn btn--coral btn--block contact__whatsapp"
             message="Hi Mood Foam, I have a question."
           >
             Chat on WhatsApp instead
