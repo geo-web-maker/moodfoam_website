@@ -49,7 +49,7 @@ export default function WhatsAppButton({ message, className = 'btn btn--coral', 
       target="_blank"
       rel="noopener noreferrer"
     >
-      <WhatsappIcon />
+      <WhatsAppIcon />
       {children || 'Order on WhatsApp'}
     </a>
   );
