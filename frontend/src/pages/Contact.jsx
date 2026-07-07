@@ -55,13 +55,6 @@ export default function Contact() {
             </div>
           </div>
 
-          <WhatsAppButton
-            className="btn btn--coral contact__whatsapp"
-            message="Hi Mood Foam, I have a question."
-          >
-            Chat on WhatsApp instead
-          </WhatsAppButton>
-
           <div className="contact__map">
             <iframe
               title="Mood Foam Mattresses location"
@@ -96,7 +89,24 @@ export default function Contact() {
           </button>
 
           {status === 'sent' && <p className="contact__status contact__status--ok">Message sent -- we'll be in touch soon.</p>}
-          {status === 'error' && <p className="contact__status contact__status--error">Something went wrong. Please try WhatsApp or call us instead.</p>}
+          {status === 'error' && 
+            <p className="contact__status contact__status--error">
+              Something went wrong. Please try WhatsApp or call us instead.
+            </p>
+            <WhatsAppButton
+            className="btn btn--coral contact__whatsapp"
+            message="Hi Mood Foam, I have a question."
+          >
+            Chat on WhatsApp instead
+          </WhatsAppButton>
+          }
+
+          <WhatsAppButton
+            className="btn btn--coral contact__whatsapp"
+            message="Hi Mood Foam, I have a question."
+          >
+            Chat on WhatsApp instead
+          </WhatsAppButton>
         </form>
       </div>
     </section>
