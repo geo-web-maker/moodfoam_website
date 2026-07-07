@@ -11,9 +11,11 @@
 
 :root {
   /* Night */
-  --ink: #1E2140;
-  --ink-soft: #34375C;
-  --ink-muted: #8B8DB0;
+  --ink: #224349;
+  --ink-soft: #2D5961;
+  --ink-muted: #62A9B6;
+  --ink-deep: #102023;
+
 
   /* Day */
   --bg: #E9E6DC;
@@ -21,10 +23,10 @@
   --surface-alt: #F1EEE3;
 
   /* Accents */
-  --coral: #E2604A;
-  --coral-dark: #C64B37;
+  --coral: #DA614E;
+  --coral-dark: #B84730;
   --plum: #5B3358;
-  --gold: #C99A4A;
+  --gold: #CB9D4D;
 
   /* Text */
   --text: #23252B;
