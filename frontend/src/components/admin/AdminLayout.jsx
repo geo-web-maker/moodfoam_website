@@ -8,7 +8,10 @@ export default function AdminLayout() {
   return (
     <div className="admin">
       <aside className="admin__sidebar">
-        <Link to="/" className="admin__brand">MOOD FOAM <span>Admin</span></Link>
+        <Link to="/" className="admin__brand">
+          <img src="/logo.png" alt="Mood Foam Mattresses" className="nav__brand-logo" />
+          <span>Admin</span>
+        </Link>
         <nav className="admin__nav">
           <NavLink to="/admin" end>Dashboard</NavLink>
           <NavLink to="/admin/products">Products</NavLink>
