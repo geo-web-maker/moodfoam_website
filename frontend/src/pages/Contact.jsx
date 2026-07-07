@@ -32,8 +32,7 @@ export default function Contact() {
           <span className="eyebrow">Get In Touch</span>
           <h1>Contact Us</h1>
           <p>
-            Have a question about sizes, bulk orders, or delivery? Reach us directly or send a message and we'll get back to you.
-          </p>
+            Have a question about sizes, bulk orders, or delivery? We're happy to help.
         </div>
         
         <div className="contact__details">
