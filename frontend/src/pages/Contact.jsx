@@ -65,7 +65,7 @@ export default function Contact() {
           <div className="contact__map">
             <iframe
               title="Mood Foam Mattresses location"
-              src="https://www.google.com/maps?q=Naama+Central+Mityana+Uganda&output=embed"
+              src="https://www.google.com/maps?q=Busujju+Industries+Ltd-Mood+Foam+Mattresses,0.4156404,31.986321&output=embed"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
