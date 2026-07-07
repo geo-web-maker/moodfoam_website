@@ -28,14 +28,16 @@ export default function Contact() {
   return (
     <section className="section contact">
       <div className="container contact__grid">
-        <div>
+        <div className="contact__intro">
           <span className="eyebrow">Get In Touch</span>
           <h1>Contact Us</h1>
           <p>
             Have a question about sizes, bulk orders, or delivery? Reach us directly or send a
             message and we'll get back to you.
           </p>
-
+        </div>
+        
+        <div className="contact__details">
           <div className="contact__cards">
             <a className="contact__card" href="tel:+256743053096">
               <span className="contact__card-label">Call / WhatsApp</span>
