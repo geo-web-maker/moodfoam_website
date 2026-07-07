@@ -1,10 +1,24 @@
 .contact__grid {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 56px;
-  align-items: start;
+  grid-template-areas:
+    "intro   .   "
+    "details form";
+  column-gap: 56px;
+  row-gap: 32px;
+  align-items: stretch;;
 }
-
+.contact__intro{
+  grid-area: intro;
+}
+.contact__details {
+  grid-area: details;
+  display: flex;
+  flex-direction: column;
+}
+.contact__form{
+  grid-area: form;
+}
 .contact__cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -21,7 +35,9 @@
   box-shadow: var(--shadow-sm);
   transition: transform 0.15s ease;
 }
-.contact__card:hover { transform: translateY(-2px); }
+.contact__card:hover { 
+  transform: translateY(-2px); 
+}
 .contact__card-label {
   font-size: 0.72rem;
   font-weight: 700;
@@ -29,10 +45,12 @@
   text-transform: uppercase;
   color: var(--coral-dark);
 }
-.contact__card strong { font-size: 0.92rem; color: var(--ink); }
-
-.contact__whatsapp { margin-bottom: 28px; }
-
+.contact__card strong { 
+  font-size: 0.92rem; color: var(--ink); 
+}
+.contact__whatsapp { 
+  margin-bottom: 28px; 
+}
 .contact__map {
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -52,7 +70,9 @@
   flex-direction: column;
   gap: 16px;
 }
-.contact__form h2 { margin-bottom: 4px; }
+.contact__form h2 { 
+  margin-bottom: 4px; 
+}
 .contact__form label {
   display: flex;
   flex-direction: column;
