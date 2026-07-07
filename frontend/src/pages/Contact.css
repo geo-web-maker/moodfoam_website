@@ -10,13 +10,6 @@
 }
 .contact__intro{
   grid-area: intro;
-  background: var(--surface);
-  border-radius: var(--radius-lg);
-  padding: 36px;
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 .contact__details {
   grid-area: details;
