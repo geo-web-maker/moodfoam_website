@@ -2,18 +2,13 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 
 from . import models
 from .config import settings
-from .database import engine, SessionLocal
+from .database import init_db
 from .routers import auth, categories, products, uploads, contact
 from .security import hash_password
 
-models.Base.metadata.create_all(bind=engine)
-
-UPLOAD_DIR = Path(__file__).resolve().parent.parent / "uploads"
-UPLOAD_DIR.mkdir(exist_ok=True)
 
 app = FastAPI(title="Mood Foam Mattresses API")
 
@@ -25,35 +20,25 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="uploads")
 
 app.include_router(auth.router)
 app.include_router(categories.router)
 app.include_router(products.router)
-app.include_router(uploads.router)
+app.include_router(uploads.router, prefix="/api/uploads", tags=["uploads"])
 app.include_router(contact.router)
 
 
 @app.on_event("startup")
-def ensure_admin_user():
-    db = SessionLocal()
-    try:
-        existing = (
-            db.query(models.AdminUser)
-            .filter(models.AdminUser.username == settings.admin_username)
-            .first()
-        )
-        if not existing:
-            db.add(
-                models.AdminUser(
-                    username=settings.admin_username,
-                    hashed_password=hash_password(settings.admin_password),
-                )
-            )
-            db.commit()
-    finally:
-        db.close()
-
+async def on_startup():
+    await init_db()
+    existing = await models.AdminUser.find_one(
+        models.AdminUser.username == settings.admin_username
+    )
+    if not existing:
+        await models.AdminUser(
+            username=settings.admin_username,
+            hashed_password=hash_password(settings.admin_password),
+        ).insert()
 
 @app.get("/api/config")
 def public_config():
