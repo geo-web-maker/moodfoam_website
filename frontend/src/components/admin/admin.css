@@ -256,9 +256,16 @@
 
 @media (max-width: 860px) {
   .admin { grid-template-columns: 1fr; }
-  .admin__sidebar { position: static; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; }
+   .admin__sidebar {
+    position: static;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+  }
   .admin__nav { flex-direction: row; flex-wrap: wrap; }
-  .admin__sidebar-footer { margin-top: 12px; width: 100%; }
+  .admin__sidebar-footer { margin-top: 0 !important; width: 100%; }
   .admin-form__row { grid-template-columns: 1fr; }
   .admin__content { padding: 24px 18px; }
 }
