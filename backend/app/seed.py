@@ -6,8 +6,9 @@ for each product from the admin dashboard after seeding).
 
 Run with:  python -m app.seed
 """
+import asyncio
 
-from .database import SessionLocal, engine
+from .database import init_db
 from . import models
 
 MATTRESS_SIZES = [
@@ -297,34 +298,29 @@ CATEGORIES = [
 ]
 
 
-def run():
-    models.Base.metadata.create_all(bind=engine)
-    db = SessionLocal()
-    try:
-        if db.query(models.Category).count() > 0:
-            print("Database already has categories -- skipping seed. "
-                  "Delete moodfoam.db first if you want to reseed from scratch.")
-            return
+async def run():
+    await init_db()
 
-        for cat_data in CATEGORIES:
-            products = cat_data.pop("products")
-            category = models.Category(**cat_data)
-            db.add(category)
-            db.flush()  # get category.id
+    if await models.Category.find_one({}):
+        print("Database already has categories -- skipping seed. "
+              "Drop the collections in Atlas first if you want to reseed from scratch.")
+        return
 
-            for i, prod_data in enumerate(products):
-                product = models.Product(
-                    category_id=category.id,
-                    sort_order=i,
-                    **prod_data,
-                )
-                db.add(product)
+    for cat_data in CATEGORIES:
+        products = cat_data.pop("products")
+        category = models.Category(**cat_data)
+        await category.insert()
 
-        db.commit()
-        print(f"Seeded {len(CATEGORIES)} categories.")
-    finally:
-        db.close()
+        for i, prod_data in enumerate(products):
+            product = models.Product(
+                category_id=str(category.id),
+                sort_order=i,
+                **prod_data,
+            )
+            await product.insert()
+
+    print(f"Seeded {len(CATEGORIES)} categories.")
 
 
-if __name__ == "__main__":
-    run()
+ if __name__ == "__main__":
+    asyncio.run(run())
