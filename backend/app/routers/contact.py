@@ -1,57 +1,52 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
-
 from .. import models, schemas, security
-from ..database import get_db
+
 
 router = APIRouter(prefix="/api/contact", tags=["contact"])
 
+def _to_out(msg: models.ContactMessage) -> schemas.ContactMessageOut:
+    return schemas.ContactMessageOut(
+        id=str(msg.id), name=msg.name, phone=msg.phone, email=msg.email,
+        message=msg.message, created_at=msg.created_at, is_read=msg.is_read,
+    )
 
 @router.post("", response_model=schemas.ContactMessageOut)
-def submit_message(payload: schemas.ContactMessageCreate, db: Session = Depends(get_db)):
+async def submit_message(payload: schemas.ContactMessageCreate):
     msg = models.ContactMessage(**payload.model_dump())
-    db.add(msg)
-    db.commit()
-    db.refresh(msg)
-    return msg
+    await msg.insert()
+    return _to_out(msg)
 
 
 @router.get("", response_model=list[schemas.ContactMessageOut])
-def list_messages(
-    db: Session = Depends(get_db),
+async def list_messages(
     current_admin: models.AdminUser = Depends(security.get_current_admin),
 ):
-    return (
-        db.query(models.ContactMessage)
-        .order_by(models.ContactMessage.created_at.desc())
-        .all()
-    )
+    messages = await models.ContactMessage.find_all().sort(
+        -models.ContactMessage.created_at
+    ).to_list()
+    return [_to_out(m) for m in messages]
 
 
 @router.put("/{message_id}/read", response_model=schemas.ContactMessageOut)
-def mark_read(
-    message_id: int,
-    db: Session = Depends(get_db),
+async def mark_read(
+    message_id: str,
     current_admin: models.AdminUser = Depends(security.get_current_admin),
 ):
-    msg = db.query(models.ContactMessage).get(message_id)
+    msg = await models.ContactMessage.get(message_id)
     if not msg:
         raise HTTPException(status_code=404, detail="Message not found")
     msg.is_read = True
-    db.commit()
-    db.refresh(msg)
-    return msg
+    await msg.save()
+    return _to_out(msg)
 
 
 @router.delete("/{message_id}")
-def delete_message(
-    message_id: int,
-    db: Session = Depends(get_db),
+async def delete_message(
+    message_id: str,
     current_admin: models.AdminUser = Depends(security.get_current_admin),
 ):
-    msg = db.query(models.ContactMessage).get(message_id)
+    msg = await models.ContactMessage.get(message_id)
     if not msg:
         raise HTTPException(status_code=404, detail="Message not found")
-    db.delete(msg)
-    db.commit()
+    await msg.delete()
     return {"ok": True}
