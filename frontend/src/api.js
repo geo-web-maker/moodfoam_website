@@ -41,6 +41,16 @@ export const createProduct = (payload) => client.post('/api/products', payload).
 export const updateProduct = (id, payload) => client.put(`/api/products/${id}`, payload).then((r) => r.data);
 export const deleteProduct = (id) => client.delete(`/api/products/${id}`).then((r) => r.data);
 
+// ---------- Error helpers ----------
+export const getErrorMessage = (err, fallback) => {
+  const detail = err?.response?.data?.detail;
+  if (typeof detail === 'string') return detail;
+  if (Array.isArray(detail)) {
+    return detail.map((d) => d.msg || JSON.stringify(d)).join('; ');
+  }
+  return fallback;
+};
+
 // ---------- Admin: uploads ----------
 export const uploadImage = (file) => {
   const formData = new FormData();
