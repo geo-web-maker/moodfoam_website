@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import {
-  getCategories,
-  getProducts,
-  createProduct,
-  updateProduct,
-  uploadImage,
-  deleteImage,
-  imageUrl,
-} from '../../api';
+ import {
+   getCategories,
+   getProducts,
+   createProduct,
+   updateProduct,
+   uploadImage,
+   deleteImage,
+   imageUrl,
+   getErrorMessage,
+ } from '../../api';
 
 const emptyForm = {
   name: '',
@@ -137,7 +138,7 @@ export default function ProductForm() {
       }
       navigate('/admin/products');
     } catch (err) {
-      setError(err?.response?.data?.detail || 'Could not save this product.');
+      setError(getErrorMessage(err, 'Could not save this product.'));
     } finally {
       setSaving(false);
     }
