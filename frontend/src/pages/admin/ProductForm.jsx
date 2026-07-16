@@ -101,8 +101,8 @@ export default function ProductForm() {
     setError('');
     try {
       for (const file of files) {
-        const { filename } = await uploadImage(file);
-        setForm((f) => ({ ...f, images: [...f.images, filename] }));
+        const { url } = await uploadImage(file);
+        setForm((f) => ({ ...f, images: [...f.images, url] }));
       }
     } catch {
       setError('One or more images failed to upload. Please try again.');
@@ -112,9 +112,10 @@ export default function ProductForm() {
     }
   };
 
-  const removeImage = async (filename) => {
-    setForm((f) => ({ ...f, images: f.images.filter((i) => i !== filename) }));
+  const removeImage = async (imgUrl) => {
+    setForm((f) => ({ ...f, images: f.images.filter((i) => i !== imgUrl) }));
     try {
+      const filename = imgUrl.split('/').pop();
       await deleteImage(filename);
     } catch {
       // Non-fatal: the image is already detached from this product.
