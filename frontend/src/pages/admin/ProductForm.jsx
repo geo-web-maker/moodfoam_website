@@ -131,7 +131,7 @@ export default function ProductForm() {
     }
     setSaving(true);
     try {
-      const payload = { ...form, category_id: Number(form.category_id) };
+      const payload = { ...form };
       if (isEditing) {
         await updateProduct(id, payload);
       } else {
