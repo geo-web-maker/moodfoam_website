@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getCategories, createCategory, updateCategory, deleteCategory } from '../../api';
+import { getCategories, createCategory, updateCategory, deleteCategory, getErrorMessage } from '../../api';
 
 function slugify(text) {
   return text.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -47,7 +47,7 @@ export default function CategoriesList() {
       cancelEdit();
       load();
     } catch (err) {
-      setError(err?.response?.data?.detail || 'Could not save this category.');
+      setError(getErrorMessage(err, 'Could not save this category.'));
     } finally {
       setSaving(false);
     }
