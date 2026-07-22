@@ -56,6 +56,9 @@ def _downscale(contents: bytes, content_type: str) -> bytes:
     trim file size. Falls back to original bytes if Pillow can't process it."""
     try:
         img = Image.open(io.BytesIO(contents))
+        img.verify()  # raises if the file isn't a valid, complete image
+        # verify() consumes the file object, so reopen before actual use
+        img = Image.open(io.BytesIO(contents))
         img.thumbnail((MAX_DIMENSION, MAX_DIMENSION))
         buf = io.BytesIO()
         fmt = {"image/jpeg": "JPEG", "image/png": "PNG", "image/webp": "WEBP"}[content_type]
@@ -63,8 +66,8 @@ def _downscale(contents: bytes, content_type: str) -> bytes:
         img.save(buf, format=fmt, **save_kwargs)
         return buf.getvalue()
     except Exception:
-        logger.warning("Pillow downscale failed, uploading original bytes", exc_info=True)
-        return contents
+        logger.warning("Pillow could not process upload; rejecting", exc_info=True)
+        raise ValueError("File is not a valid image or is corrupted.")
 
 
 # --- Routes ----------------------------------------------------------------
@@ -84,7 +87,10 @@ async def upload_image(
             status_code=400,
             detail=f"File too large ({len(contents) // 1024} KB). Max is {MAX_UPLOAD_BYTES // 1024} KB.",
         )
-    contents = _downscale(contents, file.content_type)
+    try:
+        contents = _downscale(contents, file.content_type)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     ext = ALLOWED_TYPES[file.content_type]
     filename = f"{uuid.uuid4().hex}{ext}"
     try:
