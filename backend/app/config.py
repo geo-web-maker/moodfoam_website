@@ -15,7 +15,8 @@ class Settings(BaseSettings):
     r2_access_key_id: str = ""
     r2_secret_access_key: str = ""
     r2_public_url: str = ""
-
+    debug: bool = False
+    
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     @property
