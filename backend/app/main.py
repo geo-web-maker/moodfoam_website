@@ -13,7 +13,12 @@ from .routers import auth, categories, products, uploads, contact
 from .security import hash_password
 
 
-app = FastAPI(title="Mood Foam Mattresses API")
+app = FastAPI(
+    title="Mood Foam Mattresses API",
+    docs_url="/docs" if settings.debug else None,
+    redoc_url="/redoc" if settings.debug else None,
+    openapi_url="/openapi.json" if settings.debug else None,
+)
 
 limiter = Limiter(key_func=get_remote_address)
 app.state.limiter = limiter
