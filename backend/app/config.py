@@ -2,9 +2,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    secret_key: str = "dev-only-secret-change-me"
-    admin_username: str = "admin"
-    admin_password: str = "admin123"
+    secret_key: str
+    admin_username: str
+    admin_password: str
     cors_origins: str = "http://localhost:5173,http://localhost:4173"
     whatsapp_number: str = "256743053096"
     access_token_expire_minutes: int = 60 * 12  # 12 hours
