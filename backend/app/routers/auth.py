@@ -1,4 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+
 
 from .. import models, schemas, security
 
@@ -8,9 +11,11 @@ router = APIRouter(prefix="/api/auth", tags=["auth"])
 # Precomputed so a nonexistent username still costs a real bcrypt verify —
 # otherwise response time reveals whether the username exists.
 _DUMMY_HASH = security.hash_password("not-a-real-password-just-for-timing")
+limiter = Limiter(key_func=get_remote_address)
 
 @router.post("/login", response_model=schemas.Token)
-async def login(payload: schemas.LoginRequest):
+@limiter.limit("5/minute")
+async def login(request: Request, payload: schemas.LoginRequest):
     user = await models.AdminUser.find_one(
         models.AdminUser.username == payload.username
     )
