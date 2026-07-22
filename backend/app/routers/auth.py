@@ -5,13 +5,18 @@ from .. import models, schemas, security
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
+# Precomputed so a nonexistent username still costs a real bcrypt verify —
+# otherwise response time reveals whether the username exists.
+_DUMMY_HASH = security.hash_password("not-a-real-password-just-for-timing")
 
 @router.post("/login", response_model=schemas.Token)
 async def login(payload: schemas.LoginRequest):
     user = await models.AdminUser.find_one(
         models.AdminUser.username == payload.username
     )
-    if not user or not security.verify_password(payload.password, user.hashed_password):
+    hashed = user.hashed_password if user else _DUMMY_HASH
+    password_ok = security.verify_password(payload.password, hashed)
+    if not user or not password_ok:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
