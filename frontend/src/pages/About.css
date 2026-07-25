@@ -1,3 +1,4 @@
+/* ---------- hero (page-head variant with stats) ---------- */
 .about-hero__grid {
   display: grid;
   grid-template-columns: 1.4fr 0.8fr;
@@ -7,72 +8,83 @@
 .about-hero__stats {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 .about-hero__stat {
+  border: 1px solid var(--rule);
   background: var(--surface);
-  border-radius: var(--radius-md);
-  padding: 24px;
-  box-shadow: var(--shadow-sm);
+  padding: 22px 24px;
 }
 .about-hero__stat strong {
   display: block;
   font-family: var(--font-display);
   font-size: 1.8rem;
+  font-weight: 600;
   color: var(--coral-dark);
 }
-.about-hero__stat span {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
+.about-hero__stat span { font-size: 0.85rem; color: var(--text-muted); }
+@media (max-width: 860px) { .about-hero__grid { grid-template-columns: 1fr; } }
 
+/* ---------- vision / mission / values ---------- */
 .about-foundation {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
 }
 .about-foundation__card {
   background: var(--surface);
-  border-radius: var(--radius-md);
-  padding: 28px;
-  box-shadow: var(--shadow-sm);
+  padding: 32px 28px;
 }
 .about-foundation__card p { color: var(--text); margin: 0; }
-.about-values {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+.about-values { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
 .about-values li {
   padding-left: 20px;
   position: relative;
   color: var(--text);
   font-weight: 600;
+  font-size: 0.94rem;
 }
 .about-values li::before {
-  content: '';
+  content: '\2014';
   position: absolute;
-  left: 0; top: 8px;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--coral);
+  left: 0;
+  color: var(--gold);
 }
+@media (max-width: 860px) { .about-foundation { grid-template-columns: 1fr; } }
 
-.about-goal h3 { margin-bottom: 8px; }
-.about-goal { padding: 26px; }
-.about-goal p { margin: 0; }
+/* ---------- goals ---------- */
+.about-goals {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+@media (max-width: 900px) { .about-goals { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .about-goals { grid-template-columns: 1fr; } }
 
+.about-goal {
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  padding: 26px;
+}
+.about-goal h3 { font-size: 1.1rem; margin-bottom: 8px; }
+.about-goal p { margin: 0; font-size: 0.92rem; }
+
+/* ---------- institutional block (ink-deep) ---------- */
 .about-subheading {
   margin-top: 48px;
   margin-bottom: 20px;
   color: var(--text-on-ink);
+  font-weight: 600;
+  font-size: 1.2rem;
 }
 .about-institution-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
+@media (max-width: 700px) { .about-institution-grid { grid-template-columns: 1fr; } }
 .about-institution-item {
   border-left: 2px solid var(--gold);
   padding-left: 18px;
@@ -92,31 +104,4 @@
 .about-branding-copy {
   max-width: 680px;
   color: var(--text-on-ink-muted);
-}
-
-.nav__brand {
-  display: flex;
-  align-items: center;
-  margin-right: auto;
-}
-
-.nav__brand-logo {
-  height: 40px;      
-  width: auto;
-  display: block;
-}
-
-@media (max-width: 480px) {
-  .nav__brand-logo {
-    height: 32px;    
-  }
-}
-
-.about-cta {
-  text-align: center;
-}
-.about-cta h2 { margin-bottom: 24px; }
-
-@media (max-width: 860px) {
-  .about-hero__grid, .about-foundation { grid-template-columns: 1fr; }
 }

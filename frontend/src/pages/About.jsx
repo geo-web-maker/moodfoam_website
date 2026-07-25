@@ -22,16 +22,16 @@ const SECTORS = [
   { title: 'Academic Institutions', body: 'Robust mattresses built for student dormitories.' },
   { title: 'Hospitality Establishments', body: 'Superior sleep experiences that lift guest satisfaction.' },
   { title: 'Private & Public Organizations', body: 'Bulk mattress solutions for staff accommodation or specialized needs.' },
-  { title: 'Wholesalers', body: "We grow together." },
+  { title: 'Wholesalers', body: 'We grow together.' },
 ];
 
 export default function About() {
   return (
     <>
-      <section className="section about-hero">
+      <section className="page-head">
         <div className="container about-hero__grid">
           <div>
-            <span className="eyebrow">About Us</span>
+            <span className="eyebrow">Our Story</span>
             <h1>Busujju Industries Limited</h1>
             <p>
               A Ugandan manufacturing company producing high-quality mattresses under the Mood
@@ -40,9 +40,9 @@ export default function About() {
               built for affordability, timely delivery, and national pride.
             </p>
             <p>
-              Through institutional partnerships and our "Rest for All" community programme, we
-              promote sustainable practices and social impact, backed by a robust supply chain
-              and a professional workforce.
+              Through institutional partnerships and our &ldquo;Rest for All&rdquo; community
+              programme, we promote sustainable practices and social impact, backed by a robust
+              supply chain and a professional workforce.
             </p>
           </div>
           <div className="about-hero__stats">
@@ -52,13 +52,13 @@ export default function About() {
             </div>
             <div className="about-hero__stat">
               <strong>Mityana</strong>
-              <span>Uganda-based factory & showroom</span>
+              <span>Uganda-based factory &amp; showroom</span>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section section--alt">
+      <section className="block">
         <div className="container about-foundation">
           <article className="about-foundation__card">
             <span className="eyebrow">Vision</span>
@@ -81,15 +81,17 @@ export default function About() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="block">
         <div className="container">
-          <div className="section-head">
-            <span className="eyebrow">Driving Excellence</span>
-            <h2>Our goals</h2>
+          <div className="block-head">
+            <div>
+              <span className="eyebrow">Driving excellence</span>
+              <h2>Our goals</h2>
+            </div>
           </div>
-          <div className="grid grid--cards about-goals">
+          <div className="about-goals">
             {GOALS.map((g) => (
-              <div className="card about-goal" key={g.title}>
+              <div className="about-goal" key={g.title}>
                 <h3>{g.title}</h3>
                 <p>{g.body}</p>
               </div>
@@ -98,20 +100,22 @@ export default function About() {
         </div>
       </section>
 
-      <section className="section section--ink">
+      <section className="block block--ink">
         <div className="container">
-          <div className="section-head">
-            <span className="eyebrow eyebrow--on-ink">For Institutions</span>
-            <h2>Tailored sleep solutions for every institution</h2>
-            <p>
-              We manufacture every mattress type and category, perfect for healthcare, academic,
-              hospitality, private and public organizations -- with full customization and
-              branding.
-            </p>
+          <div className="block-head">
+            <div>
+              <span className="eyebrow eyebrow--gold">For institutions</span>
+              <h2>Tailored sleep solutions for every institution</h2>
+              <p>
+                We manufacture every mattress type and category, perfect for healthcare, academic,
+                hospitality, private and public organizations -- with full customization and
+                branding.
+              </p>
+            </div>
           </div>
 
           <h3 className="about-subheading">Customization options</h3>
-          <div className="grid grid--cards about-institution-grid">
+          <div className="about-institution-grid">
             {CUSTOMIZATION.map((c) => (
               <div key={c.title} className="about-institution-item">
                 <h4>{c.title}</h4>
@@ -122,13 +126,13 @@ export default function About() {
 
           <h3 className="about-subheading">Branding opportunities</h3>
           <p className="about-branding-copy">
-            Reinforce your identity by incorporating your organization's logo, colours or design
+            Reinforce your identity by incorporating your organization&rsquo;s logo, colours or design
             elements directly onto mattresses or packaging -- elevating your brand with every
             sleep experience.
           </p>
 
           <h3 className="about-subheading">Partnering across sectors</h3>
-          <div className="grid grid--cards about-institution-grid">
+          <div className="about-institution-grid">
             {SECTORS.map((s) => (
               <div key={s.title} className="about-institution-item">
                 <h4>{s.title}</h4>
@@ -139,12 +143,20 @@ export default function About() {
         </div>
       </section>
 
-      <section className="section--tight">
-        <div className="container about-cta">
-          <h2>Have an institutional order in mind?</h2>
-          <WhatsAppButton message="Hi Mood Foam, I'd like to discuss an institutional / bulk order.">
-            Discuss Your Requirements
-          </WhatsAppButton>
+      <section className="block block--tight" style={{ borderBottom: 'none' }}>
+        <div className="container">
+          <div className="cta-band">
+            <div>
+              <h2>Have an institutional order in mind?</h2>
+              <p>Tell us the sector, room count, and timeline -- we&rsquo;ll come back with a quote.</p>
+            </div>
+            <WhatsAppButton
+              className="btn btn--gold"
+              message="Hi Mood Foam, I'd like to discuss an institutional / bulk order."
+            >
+              Discuss Your Requirements
+            </WhatsAppButton>
+          </div>
         </div>
       </section>
     </>
