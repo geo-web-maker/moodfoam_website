@@ -3,6 +3,8 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { getCategories } from '../../api';
 import './Navbar.css';
 
+const linkClass = ({ isActive }) => `nav__link${isActive ? ' nav__link--active' : ''}`;
+
 export default function Navbar() {
   const [categories, setCategories] = useState([]);
   const [open, setOpen] = useState(false); // mobile menu
@@ -26,7 +28,7 @@ export default function Navbar() {
         </Link>
 
         <nav className="nav__links" aria-label="Primary">
-          <NavLink to="/" end className="nav__link">Home</NavLink>
+          <NavLink to="/" end className={linkClass}>Home</NavLink>
 
           <div
             className="nav__dropdown"
@@ -34,15 +36,16 @@ export default function Navbar() {
             onMouseLeave={() => setShopOpen(false)}
           >
             <button
-              className="nav__link nav__link--btn"
+              className={`nav__link nav__link--btn${location.pathname.startsWith('/products') ? ' nav__link--active' : ''}`}
               aria-expanded={shopOpen}
               onClick={() => setShopOpen((v) => !v)}
             >
-              Products
+              The Range
               <svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.6" fill="none" /></svg>
             </button>
             {shopOpen && (
               <div className="nav__dropdown-panel">
+                <Link to="/products" className="nav__dropdown-item">All mattresses</Link>
                 {categories.map((c) => (
                   <Link key={c.slug} to={`/products/${c.slug}`} className="nav__dropdown-item">
                     {c.name}
@@ -52,12 +55,12 @@ export default function Navbar() {
             )}
           </div>
 
-          <NavLink to="/about" className="nav__link">About</NavLink>
-          <NavLink to="/showroom" className="nav__link">Showroom</NavLink>
-          <NavLink to="/contact" className="nav__link">Contact</NavLink>
+          <NavLink to="/showroom" className={linkClass}>Showroom</NavLink>
+          <NavLink to="/about" className={linkClass}>Our Story</NavLink>
+          <NavLink to="/contact" className={linkClass}>Contact</NavLink>
         </nav>
 
-        <a href="tel:+256743053096" className="btn btn--outline btn--sm nav__cta">Call Us</a>
+        <a href="https://wa.me/256743053096" className="btn btn--outline btn--sm nav__cta">Order on WhatsApp</a>
 
         <button
           className="nav__burger"
@@ -72,16 +75,17 @@ export default function Navbar() {
       {open && (
         <nav className="nav__mobile" aria-label="Mobile">
           <Link to="/" className="nav__mobile-link">Home</Link>
-          <p className="nav__mobile-heading">Products</p>
+          <p className="nav__mobile-heading">The Range</p>
+          <Link to="/products" className="nav__mobile-link nav__mobile-link--sub">All mattresses</Link>
           {categories.map((c) => (
             <Link key={c.slug} to={`/products/${c.slug}`} className="nav__mobile-link nav__mobile-link--sub">
               {c.name}
             </Link>
           ))}
-          <Link to="/about" className="nav__mobile-link">About</Link>
           <Link to="/showroom" className="nav__mobile-link">Showroom</Link>
+          <Link to="/about" className="nav__mobile-link">Our Story</Link>
           <Link to="/contact" className="nav__mobile-link">Contact</Link>
-          <a href="tel:+256743053096" className="btn btn--coral nav__mobile-cta">Call 0743 053096</a>
+          <a href="https://wa.me/256743053096" className="btn btn--coral nav__mobile-cta">Order on WhatsApp</a>
         </nav>
       )}
     </header>

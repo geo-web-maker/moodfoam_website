@@ -1,0 +1,11 @@
+.diagram-block {
+  background: var(--surface-alt);
+  padding: 30px;
+  border-radius: 8px;
+  margin-top: 34px;
+}
+.diagram-block svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
