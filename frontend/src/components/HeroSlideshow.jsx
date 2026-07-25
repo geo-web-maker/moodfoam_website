@@ -26,43 +26,53 @@ export default function HeroSlideshow() {
   const slide = HERO_SLIDES[active];
 
   return (
-    <div
-      className="hero__grid"
+    <section
+      className="showcase-hero"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      <div>
-        <span className="eyebrow eyebrow--on-ink">{slide.eyebrow}</span>
-        <h1>{slide.headline}</h1>
-        <p className="hero__lede">{slide.body}</p>
-        <div className="hero__actions">
-          <Link to="/products" className="btn btn--coral">Browse Products</Link>
-          <WhatsAppButton
-            className="btn btn--ghost-on-ink"
-            message="Hi Mood Foam, I'd like to ask about your mattresses."
-          >
-            Chat on WhatsApp
-          </WhatsAppButton>
+      {HERO_SLIDES.map((s, i) => (
+        <img
+          key={s.image}
+          src={s.image}
+          alt=""
+          className={`showcase-hero__slide${i === active ? ' is-active' : ''}`}
+          loading={i === 0 ? 'eager' : 'lazy'}
+        />
+      ))}
+
+      <div className="scroll-cue">Scroll from night to day</div>
+
+      <div className="container showcase-hero__content">
+        <div className="showcase-hero__row">
+          <h1>{slide.headline}</h1>
+          <div className="showcase-hero__meta">
+            <p>{slide.body}</p>
+            <div className="showcase-hero__actions">
+              <Link to="/products" className="btn btn--gold">Browse Products</Link>
+              <WhatsAppButton
+                className="btn btn--outline-light"
+                message="Hi Mood Foam, I'd like to ask about your mattresses."
+              >
+                Chat on WhatsApp
+              </WhatsAppButton>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="hero-slideshow">
-        <div className="hero-slideshow__frame">
-          {HERO_SLIDES.map((s, i) => (
-            <img
-              key={s.image}
-              src={s.image}
-              alt=""
-              className={`hero-slideshow__img hero-slideshow__img--${s.fit} ${
-                i === active ? 'is-active' : ''
-              }`}
-              loading={i === 0 ? 'eager' : 'lazy'}
-            />
-          ))}
-        </div>
+      <div className="showcase-hero__dots">
+        {HERO_SLIDES.map((s, i) => (
+          <button
+            key={s.image}
+            className={`showcase-hero__dot${i === active ? ' is-active' : ''}`}
+            aria-label={`Show slide ${i + 1}`}
+            onClick={() => setActive(i)}
+          />
+        ))}
       </div>
-    </div>
+    </section>
   );
 }
