@@ -1,15 +1,17 @@
 import { Link } from 'react-router-dom';
+import './NotFound.css';
 
 export default function NotFound() {
   return (
-    <section className="section" style={{ textAlign: 'center' }}>
-      <div className="container">
-        <span className="eyebrow">404</span>
-        <h1>This page drifted off</h1>
-        <p style={{ maxWidth: 420, margin: '0 auto 28px' }}>
-          The page you're looking for doesn't exist any more. Let's get you back to something comfortable.
-        </p>
-        <Link to="/" className="btn btn--coral">Back to Home</Link>
+    <section className="not-found">
+      <div className="container not-found__content">
+        <div className="not-found__num">404</div>
+        <h1>This mattress has been moved.</h1>
+        <p>The page you&rsquo;re looking for doesn&rsquo;t exist any more &mdash; but the rest of the range is still right where you left it.</p>
+        <div className="not-found__actions">
+          <Link to="/" className="btn btn--gold">Back to Home</Link>
+          <Link to="/products" className="btn btn--outline">Browse the range</Link>
+        </div>
       </div>
     </section>
   );
