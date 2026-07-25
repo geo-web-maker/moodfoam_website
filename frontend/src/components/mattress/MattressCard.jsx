@@ -34,7 +34,16 @@ export default function MattressCard({
   return (
     <div className="mcard">
       <div className="ph">
-        {image ? <img src={image} alt={imageAlt || name} /> : null}
+        {image ? (
+          <img src={image} alt={imageAlt || name} />
+        ) : (
+          <div className="ph__placeholder" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="7" width="20" height="10" rx="2" stroke="currentColor" strokeWidth="1.4" />
+              <path d="M2 17v2M22 17v2" stroke="currentColor" strokeWidth="1.4" />
+            </svg>
+          </div>
+        )}
       </div>
       {tag && <span className="tag">{tag}</span>}
       <div className="info">

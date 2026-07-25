@@ -221,6 +221,7 @@ button { font-family: var(--font-body); cursor: pointer; }
 .mcard { background: var(--surface-alt); position: relative; transition: transform 0.25s ease, box-shadow 0.25s ease; }
 .mcard:hover { transform: translateY(-5px); box-shadow: 0 20px 44px rgba(16, 32, 35, 0.14); }
 .mcard .ph { aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface); }
+.mcard .ph__placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--ink-muted); }
 .mcard .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
 .mcard:hover .ph img { transform: scale(1.06); }
 .mcard .tag {

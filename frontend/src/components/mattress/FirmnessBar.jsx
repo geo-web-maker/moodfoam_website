@@ -5,8 +5,11 @@
  *
  * Once the backend's `firmness_percent` field exists, pass it straight
  * through: <FirmnessBar percent={product.firmness_percent} />
+ *
+ * `labels` defaults to the compact 2-label card variant (Soft/Firm); pass
+ * `['Soft', 'Medium', 'Firm']` for the product page's 3-label variant.
  */
-export default function FirmnessBar({ percent }) {
+export default function FirmnessBar({ percent, labels = ['Soft', 'Firm'] }) {
   if (percent === null || percent === undefined) return null;
   const clamped = Math.max(0, Math.min(100, percent));
 
@@ -16,8 +19,7 @@ export default function FirmnessBar({ percent }) {
         <i style={{ width: `${clamped}%` }} />
       </div>
       <div className="firmness-label">
-        <span>Soft</span>
-        <span>Firm</span>
+        {labels.map((l) => <span key={l}>{l}</span>)}
       </div>
     </div>
   );

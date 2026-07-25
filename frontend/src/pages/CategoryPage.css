@@ -1,0 +1,15 @@
+.category-page { padding: 44px 0 90px; }
+
+.category-page__filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 28px 0 40px;
+}
+.category-page__count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}

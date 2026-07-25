@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getCategories } from '../api';
-import CategoryCard from '../components/CategoryCard';
+import MattressCard from '../components/mattress/MattressCard';
+import './Products.css';
 
 export default function Products() {
   const [categories, setCategories] = useState([]);
@@ -13,23 +14,36 @@ export default function Products() {
   }, []);
 
   return (
-    <section className="section">
-      <div className="container">
-        <div className="section-head">
-          <span className="eyebrow">Full Range</span>
-          <h1>Products</h1>
+    <>
+      <section className="page-head">
+        <div className="container">
+          <span className="eyebrow">Full range</span>
+          <h1>Every mattress we manufacture</h1>
           <p>Every mattress, bed, sofa and finishing product we manufacture, grouped by type.</p>
         </div>
-        {loading ? (
-          <p className="state-message">Loading categories&hellip;</p>
-        ) : (
-          <div className="grid grid--cards">
-            {categories.map((c) => (
-              <CategoryCard key={c.slug} category={c} />
-            ))}
-          </div>
-        )}
-      </div>
-    </section>
+      </section>
+
+      <section className="block products-intro">
+        <div className="container">
+          {loading ? (
+            <p className="state-message">Loading categories&hellip;</p>
+          ) : categories.length === 0 ? (
+            <p className="state-message">Categories will appear here once they&rsquo;re added from the admin dashboard.</p>
+          ) : (
+            <div className="card-grid">
+              {categories.map((c) => (
+                <MattressCard
+                  key={c.slug}
+                  name={c.name}
+                  description={`${c.product_count} option${c.product_count === 1 ? '' : 's'}`}
+                  linkTo={`/products/${c.slug}`}
+                  linkLabel="Browse this category &rarr;"
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    </>
   );
 }
